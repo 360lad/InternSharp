@@ -45,10 +45,10 @@ router.post("/signin",async(req,res)=>{
       res.status(500).json({message:"Wrong credentials"})
     };
 
-    const {password:userPassword,...otherinfo}=userLogin._doc;
-    const token=await jwt.sign(otherinfo,process.env.JWT_SECRET);
+    // const {password:userPassword,...otherinfo}=userLogin._doc;
+    // const token=await jwt.sign(otherinfo,process.env.JWT_SECRET);
 
-    res.status(200).json({...otherinfo,accesToken:token})
+    // res.status(200).json({...otherinfo,accesToken:token})
 
     
   } catch (error) {
