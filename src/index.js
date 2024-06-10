@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from 'mongoose';
 import dotenv from "dotenv";
+import { router as authRoutes } from "./routes/auth.js";
 
 dotenv.config()
 const app = express();
@@ -16,4 +17,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+  app.use(express.json());
+  app.use(express.urlencoded({extended:true}))
+  app.use("/api/auth", authRoutes);
 
