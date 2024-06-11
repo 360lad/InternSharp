@@ -33,8 +33,8 @@ router.post("/signup", async (req, res) => {
 
 //SIGN IN
 router.post("/signin",async(req,res)=>{
+  const {email,password}=req.body
   try {
-    const {email,password}=req.body
     const userLogin=await User.findOne({email});
     console.log(userLogin)
     if(!userLogin){

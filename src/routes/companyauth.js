@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Company from "../models/companyauth.js";
 import bcrypt from "bcrypt";
+import jwt  from "jsonwebtoken";
 
 const router = Router();
 
@@ -27,5 +28,32 @@ router.post("/signup", async (req, res) => {
     return res.status(401).json({message:error});
   }
 });
+
+//COMPANY SIGN IN
+
+router.post("/signin",async (req,res)=>{
+  const {companyEmail,companyPassword}=req.body
+
+  try {
+    const companyLogin= await Company.findOne({companyEmail});
+    if(!companyLogin){
+      return res.status(501).json({message:"User Not Found"})
+    }
+    const loginPassword= await bcrypt.compare(companyPassword,companyLogin.companyPassword);
+    if(!loginPassword){
+      return res.status(500).json({message:"Wrong credentials"});
+
+    }
+    const {companyPassword:passwordOfCompany,...otherinfo}=companyLogin._doc;
+    const token = jwt.sign(otherinfo,process.env.JWT_SECRET)
+    res.status(201).json({...otherinfo,accesToken:token})
+
+
+    
+  } catch (error) {
+    return res.status(500).json({message:error})
+    
+  }
+})
 
 export {router}
