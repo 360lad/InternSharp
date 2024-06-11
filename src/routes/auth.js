@@ -8,7 +8,7 @@ const router = Router();
 //SIGNUP
 
 router.post("/signup", async (req, res) => {
-  const { fullname, email, password, resume } = req.body;
+  const { fullname, email, password, profile } = req.body;
   try {
     const user = await User.findOne({ email });
 
@@ -20,7 +20,7 @@ router.post("/signup", async (req, res) => {
       fullname,
       email,
       password: hashedPassword,
-      resume,
+      profile
     });
     const savedUser = await newUser.save();
 
@@ -57,6 +57,20 @@ router.post("/signin",async(req,res)=>{
     
   }
 
+})
+
+//UPDATING USER PROFILE
+
+router.patch("/update/:id",async(req,res)=>{
+  try {
+    const {id}=req.params;
+    console.log(req.body)
+    const updateProfile=await User.findByIdAndUpdate(id,req.body, {new:true})
+    return res.status(201).json(updateProfile)
+  } catch (error) {
+    return res.status(500).json({message:error})
+    
+  }
 })
 
 export {router}
