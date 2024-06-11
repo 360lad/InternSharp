@@ -35,20 +35,21 @@ router.post("/signup", async (req, res) => {
 router.post("/signin",async(req,res)=>{
   try {
     const {email,password}=req.body
-    const userLogin=await findOne({email});
+    const userLogin=await User.findOne({email});
+    console.log(userLogin)
     if(!userLogin){
       return res.status(500).json({message:"User not found"})
 
     }
+
     const passwordLogin= await bcrypt.compare(password,userLogin.password)
     if(!passwordLogin){
-      res.status(500).json({message:"Wrong credentials"})
+      return res.status(500).json({message:"Wrong credentials"})
     };
+    const {password:userPassword,...otherinfo}=userLogin._doc;
+    const token= jwt.sign(otherinfo,process.env.JWT_SECRET);
 
-    // const {password:userPassword,...otherinfo}=userLogin._doc;
-    // const token=await jwt.sign(otherinfo,process.env.JWT_SECRET);
-
-    // res.status(200).json({...otherinfo,accesToken:token})
+    res.status(200).json({...otherinfo,accesToken:token})
 
     
   } catch (error) {

@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from 'mongoose';
 import dotenv from "dotenv";
 import { router as authRoutes } from "./routes/auth.js";
+import {router as companyauthRoutes} from "./routes/companyauth.js"
 
 dotenv.config()
 const app = express();
@@ -20,6 +21,7 @@ mongoose
   app.use(express.json());
   app.use(express.urlencoded({extended:true}))
   app.use("/api/auth", authRoutes);
+  app.use("/api/auth/company",companyauthRoutes)
 
   app.get("/",(req,res)=>{
     res.json({message:"Welcome to Internsharp"});

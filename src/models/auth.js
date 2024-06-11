@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema=mongoose.Schema({
-    fullname:{type:String ,required:true, unique:true},
+    fullname:{type:String ,required:true, unique:false},
     email:{type:String , required:true, unique:true},
     password:{type:String, required:true, unique:true},
     resume:{type:String ,required:true ,unique:true}
