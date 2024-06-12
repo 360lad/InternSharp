@@ -8,7 +8,7 @@ const router = Router();
 //SIGNUP
 
 router.post("/signup", async (req, res) => {
-  const { fullname, email, password, profile } = req.body;
+  const { fullname, email, password,userType, profile } = req.body;
   try {
     const user = await User.findOne({ email });
 
@@ -20,6 +20,7 @@ router.post("/signup", async (req, res) => {
       fullname,
       email,
       password: hashedPassword,
+      userType,
       profile
     });
     const savedUser = await newUser.save();

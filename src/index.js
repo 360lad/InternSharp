@@ -27,6 +27,7 @@ mongoose
   app.use("/api/auth", authRoutes);
   app.use("/api/auth/company",companyauthRoutes)
   app.use("/api/internships",internshipRoutes)
+  
 
   app.get("/",(req,res)=>{
     res.json({message:"Welcome to Internsharp"});
