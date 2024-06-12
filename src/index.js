@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { router as authRoutes } from "./routes/auth.js";
 import {router as companyauthRoutes} from "./routes/companyauth.js"
 import {router as internshipRoutes} from "./routes/internship.js"
+import cors from "cors";
 
 
 import internship from "./models/internship.js";
@@ -24,6 +25,7 @@ mongoose
   });
   app.use(express.json());
   app.use(express.urlencoded({extended:true}))
+  app.use(cors())
   app.use("/api/auth", authRoutes);
   app.use("/api/auth/company",companyauthRoutes)
   app.use("/api/internships",internshipRoutes)
