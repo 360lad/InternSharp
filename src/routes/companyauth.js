@@ -7,7 +7,7 @@ const router = Router();
 
 //COMPANY SIGN UP
 router.post("/signup", async (req, res) => {
-  const { companyName, companyEmail, companyPassword, companyWebsite } =
+  const { companyName, companyEmail, companyPassword, companyWebsite,userType } =
     req.body;
   try {
     const companyNames = await Company.findOne({ companyEmail });
@@ -21,6 +21,7 @@ router.post("/signup", async (req, res) => {
       companyEmail,
       companyPassword: hashedPassword,
       companyWebsite,
+      userType,
     });
     const savedCompany= await newCompany.save();
     return res.status(201).json(savedCompany);
