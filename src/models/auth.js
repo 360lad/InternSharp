@@ -10,6 +10,15 @@ const userSchema = mongoose.Schema({
     linkedinprofile: { type: String, required: false, unique: false },
     coverletter: { type: String, required: false, unique: false },
     othertestimonials: { type: Array, required: false, unique: false },
+    address:{type:String, required:false,unique:false},
+    github:{type:String,required:false,unique:false},
+    projects:{type:Array,required:false,unique:false},
+    skills:{type:Array,required:false,unique:false},
+    phone:{type:String,required:false,unique:false},
+    university:{type:String,required:false,unique:false},
+    graduationyear:{type:String,required:false,unique:false},
+    experience:{type:Object,required:false,unique:false}
+
   },
 });
 export default mongoose.model("User", userSchema);
