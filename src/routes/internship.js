@@ -64,17 +64,6 @@ router.patch("/:id", async (res, req) => {
 });
 
 
-//Getting internship by company id
-router.get("/cid", async (req, res) => {
-  try {
-    const { companyId } = req.body;
-    const internships = await Internship.find({ companyId });
-  return  res.status(200).json(internships)
-  } catch (error) {
-    return res.status(500).json({message:error})
-
-  }
-});
 
 //Deleting An Internship
 
@@ -87,4 +76,23 @@ router.delete("/:id", async (res, req) => {
     return res.status(500).json({ message: error });
   }
 });
+
+
+//Getting internship by company id
+router.get("/company/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+  
+      // Yes, it's a valid ObjectId, proceed with `findById` call.
+      const internships = await Internship.find({ companyId:id });
+      return  res.status(200).json(internships)
+  
+
+  } catch (error) {
+    return res.status(500).json({message:error})
+
+  }
+});
+
 export { router };
