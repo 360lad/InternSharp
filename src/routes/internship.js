@@ -50,7 +50,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
 // Updating The Internships
 router.patch("/:id", async (res, req) => {
   try {
@@ -58,24 +57,34 @@ router.patch("/:id", async (res, req) => {
     const updateInternship = await Internship.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    return res.status(201).json(updateInternship)
+    return res.status(201).json(updateInternship);
   } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
 
+
+//Getting internship by company id
+router.get("/cid", async (req, res) => {
+  try {
+    const { companyId } = req.body;
+    const internships = await Internship.find({ companyId });
+  return  res.status(200).json(internships)
+  } catch (error) {
     return res.status(500).json({message:error})
+
   }
 });
 
 //Deleting An Internship
 
-router.delete("/:id",async(res,req)=>{
-    try {
-        const {id}=req.params
-        const deleteInternship=await Internship.findByIdAndDelete(id)
-        return res.status(200).json(deleteInternship)
-        
-    } catch (error) {
-        return res.status(500).json({message:error})
-        
-    }
-})
-export { router }
+router.delete("/:id", async (res, req) => {
+  try {
+    const { id } = req.params;
+    const deleteInternship = await Internship.findByIdAndDelete(id);
+    return res.status(200).json(deleteInternship);
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+});
+export { router };
